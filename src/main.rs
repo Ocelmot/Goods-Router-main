@@ -6,8 +6,6 @@ use db_connector::ObjectId;
 
 use db_connector::bfs::BFS;
 
-use serde_json;
-use bson;
 
 fn main() {
     let connector = GRConnection::new("mongodb://localhost:27017").unwrap();
@@ -26,17 +24,18 @@ fn main() {
 
 
     //start: 5ec45328009f5cc500f8a55a
-    let start_id = ObjectId::with_string("5ec45328009f5cc500f8a55a").unwrap();
-    let resource = String::from("test");
+    // let start_id = ObjectId::with_string("5ec45328009f5cc500f8a55a").unwrap();
+    // let resource = String::from("test");
 
-    let start_location = connector2.get_location(start_id).unwrap();
+    // let start_location = connector2.get_location(start_id).unwrap();
 
-    let path = bfs.bfs(start_location, resource);
+    // let path = bfs.bfs(start_location, resource);
 
-    println!("path: {:?}", path);
-    // let mut loc = Location::new(Point{coords:(-73.87619018554688,40.839398489410435)}, domain.clone());
+    // println!("path: {:?}", path);
+
+    let mut loc = Location::new(Point{coords:(-73.87619018554688,40.839398489410435)}, Polygon::from_point_radius(Point{coords:(-73.87619018554688, 0.839398489410435)}, 100f64));
     // connector.save_location(&mut loc).unwrap();
-
+    // println!("Location: {:?}", loc);
 
     // let mut loc = Location::new(Point{coords:(-73.8559341430664,40.84693050130356)}, domain.clone());
     // connector.save_location(&mut loc).unwrap();
@@ -48,8 +47,8 @@ fn main() {
 
     // let mut loc = Location::new(Point{coords:(-73.85421752929688,40.86108317321337)}, domain.clone());
     // connector.save_location(&mut loc).unwrap();
-    // let serialized = serde_json::to_string(&loc).unwrap();
-    // println!("serialized = {}", serialized);
+    let serialized = serde_json::to_string(&loc).unwrap();
+    println!("serialized = {}", serialized);
     // let deserialized: Location = serde_json::from_str(&serialized).unwrap();
     // print!("deserialized: {:?}", deserialized);
 
